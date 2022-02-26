@@ -1,0 +1,56 @@
+
+################################################# SERIES TEMPORAIS ####################################################
+
+getwd() # Verificar a pasta atual
+setwd("C:/Users/Libania/Documents/0_Ciencia_de_Dados/Formação Cientista de Dados com R e Python/R/Dados") # Mudar a pasta
+
+# Instalar pacotes
+install.packages("forecast")
+library(forecast)
+
+# Conhecendo os dados
+AirPassengers
+start(AirPassengers)
+end(AirPassengers)
+frequency(AirPassengers)
+
+# Graficos
+# Executar com Crtrl+Shift+Enter
+plot(AirPassengers)
+plot(aggregate(AirPassengers))
+
+# Gera uma janela
+subst = window(AirPassengers, start=c(1960,1), end=c(1960,12))
+subst
+plot(subst)
+
+# Decomposicao
+dec = decompose(AirPassengers)
+dec
+
+attributes(dec)
+dec$seasonal
+
+# Analisando os elemntos da decomposicao
+# Executar com Crtrl+Shift+Enter
+plot(dec)
+plot(dec$x)
+plot(dec$seasonal)
+plot(dec$trend)
+plot(dec$random)
+
+# Suavizacao exponencial
+ets = ets(AirPassengers)
+ets
+
+# Previsao
+previsao = forecast(ets, h=12)
+plot(previsao)
+
+# ARIMA
+arima = auto.arima(AirPassengers)
+arima
+
+# Previsao
+previsao = forecast(arima, h=12)
+plot(previsao)
